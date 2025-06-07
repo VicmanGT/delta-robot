@@ -42,6 +42,8 @@ def get_cognex_data():
         '4': {'x': 0.0, 'y': 0.0, 'class': ' '},
     }
 
+    board_list = []
+
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
@@ -57,40 +59,14 @@ def get_cognex_data():
         '''
         #s.close()
     print(parts)
-    for i in range(0,72,4):
-        #print(i)
-        try:
-            
-            index = parts[i]
-            board_data[str(index)]['x'] = float(parts[i+1])
-            board_data[str(index)]['y'] = float(parts[i+2])
-            #print(i+3)
-            if float(parts[i+3]) >= 100000:
-                board_data[str(index)]['class'] = ' '
-                print(f"Tool {index} is empty: x={board_data[str(index)]['x']}, y={board_data[str(index)]['y']}, class={board_data[str(index)]['class']}")
-            elif float(parts[i+3]) <= 8000:
-                board_data[str(index)]['class'] = 'X'
-                print(f"Tool {index} is X: x={board_data[str(index)]['x']}, y={board_data[str(index)]['y']}, class={board_data[str(index)]['class']}")
-            else:
-                board_data[str(index)]['class'] = 'O'
-                print(f"Tool {index} is O: x={board_data[str(index)]['x']}, y={board_data[str(index)]['y']}, class={board_data[str(index)]['class']}")
-        except:
-            break
-        #print(f"Tool {index}: x={cognex_data[str(index)]['x']}, y={cognex_data[str(index)]['y']}, class={cognex_data[str(index)]['class']}")
-        #print(cognex_data)
-    j = 0
-    for i in range(76, 92, 3):
-        try:
-            count = float(parts[i])
-           
-            if count > 1:
-                index = j
-                unused_token_data[str(index)]['x'] = float(parts[i+1])
-                unused_token_data[str(index)]['y'] = float(parts[i+2])
-                unused_token_data[str(index)]['class'] = '1'
-        except Exception as e:
-            print(f"Error processing unused token data: {e}")
-            break
-        j += 1
 
-    return board_data, unused_token_data
+    for i in range(9, 0, -1):
+        if parts[i] == '':
+            board_list.append(' ')
+        elif float(parts[i]) < 9000:
+            board_list.append('X')
+        else:
+            board_list.append('O')
+        
+
+    return board_list

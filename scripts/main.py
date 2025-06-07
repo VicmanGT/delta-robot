@@ -37,9 +37,9 @@ Z_LOW = {
 }
 z_1_low = -522.0
 z_2_low = -522.0
-z_3_low = -505.0
-z_4_low = -505.0
-z_5_low = -495
+z_3_low = -520.0
+z_4_low = -520.0
+z_5_low = -500
 
 z_low = - 500
 #print("Cognex Data:", data)
@@ -69,7 +69,7 @@ while not game.game_over():
     #my_turn = 1  # For testing purposes, we assume it's always our turn
     if my_turn == 1 and previous_turn_state == 0 and not waiting_for_off:
         print("It's my turn!")
-        time.sleep(1)  # Wait for a moment to ensure the PLC signal is stable
+        time.sleep(2)  # Wait for a moment to ensure the PLC signal is stable
         done_turn = False
         
         data, unused_token_coordinates = client_cognex.get_cognex_data()
