@@ -44,7 +44,7 @@ def get_cognex_data():
 
     board_list = []
 
-
+    
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         data = s.recv(4096).decode('ascii').strip()
@@ -53,17 +53,15 @@ def get_cognex_data():
         # Suponiendo que los datos tienen el formato 'x=45.4522,y=149.082'
         parts = data.split(',')
         
-        '''     x = float(parts[0].split('=')[1])
-        y = float(parts[1].split('=')[1])
-        print(f"x: {x}, y: {y}")
-        '''
         #s.close()
+    
+    #parts = ['', '', '8416.00', '', '10675.00', '', '', '', '7375.00', '']
     print(parts)
 
-    for i in range(9, 0, -1):
-        if parts[i] == '':
+    for i in parts:
+        if i == '':
             board_list.append(' ')
-        elif float(parts[i]) < 9000:
+        elif float(i) < 9500:
             board_list.append('X')
         else:
             board_list.append('O')

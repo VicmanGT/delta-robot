@@ -9,7 +9,7 @@ l2 = 450; % Forearm Length [mm]
 rho_p = 100; % End-Effector Radius [mm]
 
 % Desired End Effector Position (Input)
-o_ef = [0  ; 0 ; -500.0]; % [x_o, y_o, z_o] in mm
+o_ef = [-200 ;-200 ; -500.0]; % [x_o, y_o, z_o] in mm
 %% Function Call
 [theta1, theta2, theta3, P_J1, P_J2, P_J3] = DeltaInvKinematics(rho_b, rho_p, l1, l2, o_ef);
 
